@@ -34,3 +34,11 @@ user_role = db.Table('user_role',
                      db.PrimaryKeyConstraint('user_id', 'role_id', name='pk_user_role'),
                      db.UniqueConstraint('user_id', 'role_id', name='uq_user_role')
                      )
+
+
+class Person(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    full_name = db.Column(db.String(120), nullable=False)
+    address = db.Column(db.String(128), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), unique=True, nullable=False)
+    user = db.relationship('User', backref='person', uselist=False)
