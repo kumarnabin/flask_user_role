@@ -3,7 +3,7 @@ from flask import jsonify, request
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, create_refresh_token
 
 from config import db
-from models import User
+from models import User, Role
 from serializers import user_serializer
 
 auth_routes = Blueprint('auth_routes', __name__)
@@ -13,13 +13,17 @@ auth_routes = Blueprint('auth_routes', __name__)
 def register():
     data = request.get_json()
     username = data.get('username')
+    email = data.get('email')
     password = data.get('password')
 
     if User.query.filter_by(username=username).first():
         return jsonify({'message': 'Username already taken'}), 400
 
-    new_user = User(username=username)
+    new_user = User(username=username,email=email)
     new_user.set_password(password)
+    role = Role.query.filter_by(name='user').first()
+    new_user.roles.append(role)
+    db.session.commit()
     db.session.add(new_user)
     db.session.commit()
 
