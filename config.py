@@ -11,7 +11,11 @@ app.config['JWT_SECRET_KEY'] = 'application-secret-key-application-secret-key-ap
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(minutes=60)
 app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)  # Example refresh token expiration
 
-jwt = JWTManager(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.db'
+
+app.config['UPLOAD_FOLDER']='upload-dir'
+
+
+jwt = JWTManager(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
