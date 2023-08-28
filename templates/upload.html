@@ -8,7 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-{% with messages = get_flashed_messages() %}
+{% for file_name in get_flashed_messages(category_filter=['file_name']) %}
+    <img src="{{ url_for('serve_image', filename=file_name) }}" alt="Image" height="200px">
+{% endfor %}
+
+{% with messages = get_flashed_messages(category_filter=['error','success']) %}
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}
