@@ -27,7 +27,7 @@ CSRF protection.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/flask-jwt-auth-example.git
+   git clone https://github.com/kumarnabin/flask_user_role.git
    cd flask-jwt-auth-example
 
 
